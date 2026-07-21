@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Gift, Sparkles } from 'lucide-react';
+import { Gift } from 'lucide-react';
 import BottleRender from './BottleRender';
 import { products } from '../data/products';
 
 export default function BundleBuilder({ onAddToCart }) {
   const [packSize, setPackSize] = useState(3); // 3-pack or 6-pack
+  const [hoveredBottleId, setHoveredBottleId] = useState(null);
 
   // Trio Pack products
   const trioProducts = products.filter(p => ["olive-oil", "butter", "avocado"].includes(p.id));
@@ -41,18 +42,36 @@ export default function BundleBuilder({ onAddToCart }) {
         {/* Left column: Bundle options, description, add to cart */}
         <div className="lg:col-span-6 flex flex-col justify-center">
           
-          <div className="inline-flex items-center space-x-2 border border-ink/10 bg-white/60 rounded-full px-4 py-1.5 w-fit mb-6">
+          <motion.div
+            initial={{ opacity: 0, x: -10 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="inline-flex items-center space-x-2 border border-ink/10 bg-white/60 rounded-full px-4 py-1.5 w-fit mb-6"
+          >
             <Gift className="w-3.5 h-3.5 text-amber-600" />
             <span className="text-[10px] font-bold tracking-widest text-ink/80">BULK DISCOUNTS</span>
-          </div>
+          </motion.div>
 
-          <h2 className="font-display font-black text-4xl md:text-6xl uppercase tracking-tighter text-ink leading-none mb-6">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+            className="font-display font-black text-4xl md:text-6xl uppercase tracking-tighter text-ink leading-none mb-6"
+          >
             BUILD YOUR BUNDLE
-          </h2>
+          </motion.h2>
 
-          <p className="text-xs md:text-sm font-semibold text-ink/75 leading-relaxed max-w-xl mb-8">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="text-xs md:text-sm font-semibold text-ink/75 leading-relaxed max-w-xl mb-8"
+          >
             Upgrade your pantry with our curated bundle packs and enjoy severe discounts. Replaces liters of grease with portion-controlled, non-stick culinary sprays.
-          </p>
+          </motion.p>
 
           {/* Trio Pack vs Pro Cook Six Toggles */}
           <div className="inline-flex bg-white/80 backdrop-blur-sm border border-border p-1.5 rounded-full w-fit mb-8 shadow-sm">
@@ -122,10 +141,8 @@ export default function BundleBuilder({ onAddToCart }) {
                 <motion.div
                   key={packSize}
                   className="flex items-end justify-center space-x-3 sm:space-x-4 absolute bottom-6 w-full max-w-md"
-                  // ENTER: ease-out-expo (520ms, 180ms delay)
                   initial={{ y: 72, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  // EXIT: ease-in (240ms, 0 delay)
                   exit={{ y: 72, opacity: 0 }}
                   transition={{
                     opacity: {
@@ -139,20 +156,32 @@ export default function BundleBuilder({ onAddToCart }) {
                   }}
                 >
                   {activeProducts.map((prod, index) => {
-                    // Slight rotations for visual layout tilt
                     const tilts = [-4, 3, -1, 5, -3, 2];
                     const activeTilt = tilts[index % tilts.length];
+                    const isHovered = hoveredBottleId === prod.id;
+                    const hasAnyHover = hoveredBottleId !== null;
 
                     return (
-                      <div 
+                      <motion.div 
                         key={prod.id} 
-                        className="flex flex-col items-center"
-                        style={{ transform: `rotate(${activeTilt}deg)` }}
+                        className="flex flex-col items-center cursor-pointer relative"
+                        onMouseEnter={() => setHoveredBottleId(prod.id)}
+                        onMouseLeave={() => setHoveredBottleId(null)}
+                        animate={{
+                          scale: isHovered ? 1.08 : hasAnyHover ? 0.82 : 1,
+                          y: isHovered ? -10 : hasAnyHover ? 8 : 0,
+                          opacity: isHovered ? 1 : hasAnyHover ? 0.55 : 1,
+                          rotate: isHovered ? 0 : activeTilt,
+                        }}
+                        transition={{ type: 'spring', stiffness: 120, damping: 14 }}
                       >
-                        <BottleRender product={prod} size="sm" />
-                        {/* Shadow floor */}
-                        <div className="w-14 h-1.5 bg-black/20 rounded-full blur-[3px] mt-1" />
-                      </div>
+                        <BottleRender product={prod} size="sm" active={isHovered} />
+                        {/* Shadow floor matching Hero section physics */}
+                        <div 
+                          className="w-13 h-1.5 bg-black/20 rounded-full blur-[3px] mt-1 transition-opacity duration-300 mx-auto" 
+                          style={{ opacity: isHovered ? 0.6 : 0.2 }}
+                        />
+                      </motion.div>
                     );
                   })}
                 </motion.div>
@@ -161,9 +190,9 @@ export default function BundleBuilder({ onAddToCart }) {
 
           </div>
 
-          <div className="mt-4 flex items-center space-x-2 text-ink/50 text-[10px] font-bold tracking-wider">
-            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-            <span>HOVER BOTTLES TO TEST SPRAY MIST</span>
+          <div className="mt-4 flex items-center space-x-2 text-ink/40 text-[10px] font-bold tracking-wider">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-500/60 block shrink-0" />
+            <span>HOVER EACH BOTTLE TO TRIGGER SPRAY MIST</span>
           </div>
 
         </div>

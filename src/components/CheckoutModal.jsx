@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ShieldCheck, CreditCard, ChevronRight, CheckCircle2, ArrowRight } from 'lucide-react';
+import { X, ShieldCheck, CreditCard, CheckCircle2, ArrowRight, Check } from 'lucide-react';
 
 export default function CheckoutModal({ isOpen, onClose, cartItems, onClearCart }) {
   const [step, setStep] = useState(1); // Steps: 1 (Shipping), 2 (Payment), 3 (Success)
@@ -86,20 +86,50 @@ export default function CheckoutModal({ isOpen, onClose, cartItems, onClearCart 
                 
                 {/* Header & Steps Indicator */}
                 <div className="flex justify-between items-start mb-6">
-                  <div>
+                  <div className="flex-1">
                     <h3 className="font-display font-black text-xl uppercase tracking-wider text-ink">SECURE CHECKOUT</h3>
-                    <div className="flex space-x-2 items-center mt-2 text-[10px] font-bold text-ink/40 tracking-wider">
-                      <span className={step >= 1 ? "text-ink" : ""}>SHIPPING</span>
-                      <ChevronRight className="w-3 h-3" />
-                      <span className={step >= 2 ? "text-ink" : ""}>PAYMENT</span>
-                      <ChevronRight className="w-3 h-3" />
-                      <span className={step >= 3 ? "text-ink" : ""}>COMPLETE</span>
+                    
+                    {/* Visual step tracker */}
+                    <div className="flex items-center mt-3 space-x-0">
+                      {[
+                        { num: 1, label: "SHIPPING" },
+                        { num: 2, label: "PAYMENT" },
+                        { num: 3, label: "COMPLETE" }
+                      ].map((s, idx) => (
+                        <React.Fragment key={s.num}>
+                          <div className="flex flex-col items-center">
+                            <div
+                              className={`w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-black transition-all duration-300 border ${
+                                step >= s.num
+                                  ? "bg-ink text-paper border-ink"
+                                  : "bg-white text-ink/30 border-border"
+                              }`}
+                            >
+                              {step > s.num
+                                ? <Check className="w-3 h-3" />
+                                : s.num
+                              }
+                            </div>
+                            <span className={`text-[8px] font-bold tracking-wider mt-1 transition-colors duration-300 ${step >= s.num ? "text-ink" : "text-ink/30"}`}>
+                              {s.label}
+                            </span>
+                          </div>
+                          {idx < 2 && (
+                            <div className="flex-1 h-[1.5px] mx-1.5 mb-3 bg-border overflow-hidden rounded-full">
+                              <div
+                                className="h-full bg-ink transition-all duration-500 ease-out"
+                                style={{ width: step > s.num ? "100%" : "0%" }}
+                              />
+                            </div>
+                          )}
+                        </React.Fragment>
+                      ))}
                     </div>
                   </div>
                   {step < 3 && (
                     <button 
                       onClick={onClose}
-                      className="p-1.5 border border-border rounded-full hover:bg-ink hover:text-paper cursor-pointer transition-colors"
+                      className="p-1.5 border border-border rounded-full hover:bg-ink hover:text-paper cursor-pointer transition-colors ml-4 mt-0.5 flex-shrink-0"
                     >
                       <X className="w-4 h-4" />
                     </button>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Trash2, Plus, Minus, ShoppingBag, Sparkles } from 'lucide-react';
+import { X, Trash2, Plus, Minus, ShoppingBag, Leaf } from 'lucide-react';
 
 export default function CartDrawer({ 
   isOpen, 
@@ -131,7 +131,7 @@ export default function CartDrawer({
                 
                 {/* Calorie savings strip */}
                 <div className="bg-emerald-50 border border-emerald-200 p-3 rounded-xl flex items-center space-x-2.5 mb-4 text-emerald-800 text-xs font-semibold">
-                  <Sparkles className="w-4 h-4 shrink-0 text-emerald-600 animate-pulse" />
+                  <Leaf className="w-4 h-4 shrink-0 text-emerald-600" />
                   <span>Calorie savings: <strong>{totalSavedCalories} kcal</strong> compared to pouring oil!</span>
                 </div>
 

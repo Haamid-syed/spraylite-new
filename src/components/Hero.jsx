@@ -15,7 +15,7 @@ export default function Hero({
   const activeProduct = products.find(p => p.id === activeFlagshipId) || flagships[0];
 
   return (
-    <section className="relative h-screen w-full min-h-[660px] flex items-center justify-center overflow-hidden transition-colors duration-700">
+    <section className="relative w-full min-h-screen lg:h-screen flex items-center justify-center overflow-hidden transition-colors duration-700 pt-28 pb-16 lg:py-0">
 
       {/* Background blur orbs — full width background atmosphere */}
       <div className="absolute inset-0 pointer-events-none">
@@ -31,8 +31,8 @@ export default function Hero({
         />
       </div>
 
-      {/* Main grid wrapped inside p-container — centered vertically in 100vh viewport */}
-      <div className="p-container grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full z-10 pt-16 md:pt-20">
+      {/* Main grid wrapped inside p-container — responsive layout across all breakpoints */}
+      <div className="p-container grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center w-full z-10 pt-4 lg:pt-16">
 
         {/* ─── LEFT: Headline + CTAs ─── */}
         <div className="lg:col-span-7 flex flex-col justify-center text-left">
@@ -77,7 +77,7 @@ export default function Hero({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.55, delay: 0.4 }}
-            className="text-ink/70 max-w-md text-xs md:text-sm font-medium mt-5 leading-relaxed"
+            className="text-ink/70 max-w-md text-xs md:text-sm font-medium mt-4 lg:mt-5 leading-relaxed"
           >
             One precise spray coats your pans evenly, reducing fat intake by over 98% per serving while replacing up to 5 litres of traditional oil.
           </motion.p>
@@ -109,13 +109,13 @@ export default function Hero({
         </div>
 
         {/* ─── RIGHT: Bottle Showcase ─── */}
-        <div className="hidden lg:flex lg:col-span-5 flex-col items-center justify-center pt-10 relative">
+        <div className="lg:col-span-5 flex flex-col items-center justify-center relative mt-6 lg:mt-0 pt-4 lg:pt-6">
 
           {/* Soft glow behind bottles */}
-          <div className="absolute bottom-[90px] w-[220px] h-[220px] bg-white/25 border border-white/10 rounded-full blur-3xl z-0 pointer-events-none" />
+          <div className="absolute bottom-[110px] w-[220px] h-[220px] bg-white/25 border border-white/10 rounded-full blur-3xl z-0 pointer-events-none" />
 
-          {/* Bottles */}
-          <div className="flex items-end justify-center space-x-4 h-[250px] w-full z-10">
+          {/* Bottles — md size on desktop/laptop, sm on mobile */}
+          <div className="flex items-end justify-center space-x-4 h-[220px] sm:h-[260px] lg:h-[320px] w-full z-10">
             {flagships.map((prod) => {
               const isActive = prod.id === activeFlagshipId;
               return (
@@ -125,14 +125,21 @@ export default function Hero({
                   className="cursor-pointer relative flex flex-col items-center"
                   animate={{
                     scale: isActive ? 1.04 : 0.82,
-                    y: isActive ? 4 : 16,
+                    y: isActive ? 0 : 12,
                     opacity: isActive ? 1 : 0.55,
                     rotate: isActive ? 0 : prod.id === 'olive-oil' ? -5 : 5,
                   }}
                   transition={{ type: 'spring', stiffness: 100, damping: 15 }}
                   whileHover={{ scale: isActive ? 1.06 : 0.88, opacity: 0.85 }}
                 >
-                  <BottleRender product={prod} size="md" active={isActive} />
+                  {/* Desktop gets size="md", Mobile gets size="sm" */}
+                  <div className="hidden lg:block">
+                    <BottleRender product={prod} size="md" active={isActive} />
+                  </div>
+                  <div className="block lg:hidden">
+                    <BottleRender product={prod} size="sm" active={isActive} />
+                  </div>
+
                   <div
                     className="w-13 h-1.5 bg-black/20 rounded-full blur-[4px] mt-1 mx-auto transition-opacity duration-300"
                     style={{ opacity: isActive ? 0.6 : 0.15 }}

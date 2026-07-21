@@ -422,8 +422,8 @@ export default function App() {
               <span className="text-[9px] font-bold tracking-widest text-paper/30 uppercase block mb-4">NAVIGATE</span>
               <ul className="space-y-2.5">
                 {[
-                  { label: "Shop All", target: "shop" },
                   { label: "Our Pillars", target: "pillars" },
+                  { label: "Shop All", target: "shop" },
                   { label: "Bundle Builder", target: "bundles" },
                   { label: "Wholesale B2B", target: "wholesale" },
                 ].map(link => (

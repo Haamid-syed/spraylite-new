@@ -140,7 +140,7 @@ export default function BundleBuilder({ onAddToCart }) {
               <AnimatePresence mode="wait">
                 <motion.div
                   key={packSize}
-                  className="flex items-end justify-center space-x-3 sm:space-x-4 absolute bottom-6 w-full max-w-md"
+                  className={`flex items-end justify-center ${packSize === 6 ? 'space-x-1 sm:space-x-3 md:space-x-4' : 'space-x-3 sm:space-x-4'} absolute bottom-6 w-full max-w-md px-2`}
                   initial={{ y: 72, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: 72, opacity: 0 }}

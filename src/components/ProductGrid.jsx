@@ -62,7 +62,7 @@ export default function ProductGrid({ onAddToCart }) {
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-5 py-2.5 rounded-full text-[11px] font-bold tracking-widest transition-all select-none cursor-pointer border ${
+            className={`px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-full text-[10px] sm:text-[11px] font-bold tracking-widest transition-all select-none cursor-pointer border ${
               activeTab === tab
                 ? "bg-ink text-paper border-ink shadow-md scale-[1.02]"
                 : "bg-white text-ink/65 border-border hover:border-ink/40 hover:text-ink hover:scale-[1.01]"

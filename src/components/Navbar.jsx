@@ -6,8 +6,8 @@ export default function Navbar({ cartCount = 0, onCartClick, onNavClick }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navItems = [
-    { label: "SHOP",           target: "shop" },
     { label: "OUR PILLARS",    target: "pillars" },
+    { label: "SHOP",           target: "shop" },
     { label: "BUNDLE BUILDER", target: "bundles" },
     { label: "WHOLESALE",      target: "wholesale" }
   ];

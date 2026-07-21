@@ -31,17 +31,17 @@ export default function Hero({
         />
       </div>
 
-      {/* Main grid wrapped inside p-container — responsive layout across all breakpoints */}
+      {/* Main grid wrapped inside p-container — centered text on smaller screens (< 1024px), left-aligned on desktop */}
       <div className="p-container grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center w-full z-10 pt-4 lg:pt-16">
 
-        {/* ─── LEFT: Headline + CTAs ─── */}
-        <div className="lg:col-span-7 flex flex-col justify-center text-left">
+        {/* ─── LEFT: Headline + CTAs (centered on mobile/tablet, left-aligned on desktop) ─── */}
+        <div className="lg:col-span-7 flex flex-col justify-center items-center lg:items-start text-center lg:text-left">
 
-          {/* Heading — static position + hover trigger for magnifying cursor lens */}
+          {/* Heading — static position + centered on smaller screens */}
           <h1 
             onMouseEnter={() => onHeadingHover?.(true)}
             onMouseLeave={() => onHeadingHover?.(false)}
-            className="font-display font-black text-4xl sm:text-5xl lg:text-[clamp(3.2rem,5.5vw,5rem)] leading-[0.86] uppercase tracking-tighter text-ink flex flex-col space-y-1 select-none mb-0 cursor-pointer w-fit"
+            className="font-display font-black text-4xl sm:text-5xl lg:text-[clamp(3.2rem,5.5vw,5rem)] leading-[0.86] uppercase tracking-tighter text-ink flex flex-col space-y-1 select-none mb-0 cursor-pointer w-fit mx-auto lg:mx-0 text-center lg:text-left"
           >
             <motion.span
               initial={{ opacity: 0, x: -24 }}
@@ -77,17 +77,17 @@ export default function Hero({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.55, delay: 0.4 }}
-            className="text-ink/70 max-w-md text-xs md:text-sm font-medium mt-4 lg:mt-5 leading-relaxed"
+            className="text-ink/70 max-w-md text-xs md:text-sm font-medium mt-4 lg:mt-5 leading-relaxed mx-auto lg:mx-0 text-center lg:text-left"
           >
             One precise spray coats your pans evenly, reducing fat intake by over 98% per serving while replacing up to 5 litres of traditional oil.
           </motion.p>
 
-          {/* CTAs */}
+          {/* CTAs — centered on mobile/tablet */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
-            className="flex flex-wrap gap-3 items-center mt-6"
+            className="flex flex-wrap gap-3 items-center justify-center lg:justify-start mt-6"
           >
             <a
               href="#shop"
@@ -132,7 +132,6 @@ export default function Hero({
                   transition={{ type: 'spring', stiffness: 100, damping: 15 }}
                   whileHover={{ scale: isActive ? 1.06 : 0.88, opacity: 0.85 }}
                 >
-                  {/* Desktop gets size="md", Mobile gets size="sm" */}
                   <div className="hidden lg:block">
                     <BottleRender product={prod} size="md" active={isActive} />
                   </div>
@@ -155,7 +154,7 @@ export default function Hero({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="w-full max-w-xs mt-3 border border-border bg-white/75 backdrop-blur-md p-4 rounded-xl shadow-sm z-20"
+            className="w-full max-w-xs mt-3 border border-border bg-white/75 backdrop-blur-md p-4 rounded-xl shadow-sm z-20 text-left"
           >
             <div className="flex justify-between items-start mb-1.5">
               <div>

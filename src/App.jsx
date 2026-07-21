@@ -398,16 +398,16 @@ export default function App() {
       <footer className="bg-ink text-paper border-t border-white/10">
         
         {/* Main Footer Body */}
-        <div className="p-container py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
+        <div className="p-container py-12 md:py-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 text-center md:text-left">
 
             {/* Col 1: Brand */}
-            <div className="lg:col-span-1">
+            <div className="flex flex-col items-center md:items-start sm:col-span-1">
               <h4 className="font-display font-black text-2xl tracking-wider mb-3">SPRAY LITE</h4>
-              <p className="text-[11px] text-paper/50 font-medium leading-relaxed max-w-[220px] mb-6">
+              <p className="text-[11px] text-paper/50 font-medium leading-relaxed max-w-xs mb-6">
                 Bridging the gap between flavor and fitness — one precise spray at a time.
               </p>
-              <div className="flex space-x-2.5">
+              <div className="flex space-x-2.5 justify-center md:justify-start">
                 <a href="#" className="p-2.5 border border-white/15 hover:border-white/50 hover:bg-white/10 rounded-full text-paper/70 hover:text-white transition-all">
                   <Instagram className="w-4 h-4" />
                 </a>
@@ -418,7 +418,7 @@ export default function App() {
             </div>
 
             {/* Col 2: Navigate */}
-            <div>
+            <div className="flex flex-col items-center md:items-start">
               <span className="text-[9px] font-bold tracking-widest text-paper/30 uppercase block mb-4">NAVIGATE</span>
               <ul className="space-y-2.5">
                 {[
@@ -441,7 +441,7 @@ export default function App() {
             </div>
 
             {/* Col 3: Products */}
-            <div>
+            <div className="flex flex-col items-center md:items-start">
               <span className="text-[9px] font-bold tracking-widest text-paper/30 uppercase block mb-4">PRODUCTS</span>
               <ul className="space-y-2.5">
                 {["Gourmet Olive Oil", "Pure Avocado Oil", "Rich Butter Flavor", "Oriental Sesame", "Groundnut Airfryer", "Pan Release Baking"].map(name => (
@@ -459,14 +459,14 @@ export default function App() {
             </div>
 
             {/* Col 4: Newsletter */}
-            <div>
+            <div className="flex flex-col items-center md:items-start">
               <span className="text-[9px] font-bold tracking-widest text-paper/30 uppercase block mb-4">STAY UPDATED</span>
-              <p className="text-[11px] text-paper/50 font-medium leading-relaxed mb-4">
+              <p className="text-[11px] text-paper/50 font-medium leading-relaxed mb-4 max-w-xs">
                 Recipes, launch drops, and exclusive member discounts — straight to your inbox.
               </p>
               <form
                 onSubmit={(e) => { e.preventDefault(); alert("You're subscribed!"); e.target.reset(); }}
-                className="flex items-center bg-white/10 border border-white/15 rounded-full p-1.5 focus-within:border-white/40 transition-colors"
+                className="w-full max-w-xs flex items-center bg-white/10 border border-white/15 rounded-full p-1.5 focus-within:border-white/40 transition-colors"
               >
                 <input
                   type="email"
@@ -487,11 +487,11 @@ export default function App() {
         </div>
 
         {/* Footer Bottom Bar */}
-        <div className="border-t border-white/10 p-container py-5 flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+        <div className="border-t border-white/10 p-container py-5 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0 text-center md:text-left">
           <p className="text-[9px] text-paper/30 font-semibold tracking-widest uppercase">
             © 2026 Spray Lite Culinary Innovations. All Rights Reserved.
           </p>
-          <div className="flex space-x-6">
+          <div className="flex flex-wrap justify-center md:justify-end gap-4 md:gap-6">
             {["Privacy Policy", "Terms of Use", "FSSAI Compliant"].map(item => (
               <a key={item} href="#" className="text-[9px] text-paper/30 hover:text-paper/60 font-semibold tracking-wider transition-colors">
                 {item}

@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-ink: #111512;
+    --color-paper: #FDFCF7;
+    --color-border: rgba(17, 21, 18, 0.15);
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+  }
+}
+
+@layer utilities {
+  /* Lenis-like smooth scroll defaults */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom Container Padding matching 'p-container' in buckssauce.com */
+  .p-container {
+    @apply px-4 sm:px-8 md:px-12 lg:px-20 max-w-7xl mx-auto;
+  }
+
+  /* Custom Column grid extensions */
+  .w-col-3 { width: 25%; }
+  .w-col-4 { width: 33.333%; }
+  .w-col-5 { width: 41.666%; }
+  .w-col-6 { width: 50%; }
+  .w-col-7 { width: 58.333%; }
+  .w-col-8 { width: 66.666%; }
+  .w-col-12 { width: 100%; }
+
+  /* Hide scrollbar utility */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Flip text effect for nav and buttons */
+  .text-flip-wrapper {
+    @apply relative block overflow-hidden h-[1.1em] leading-[1.1em] cursor-pointer select-none;
+  }
+
+  .text-flip-inner {
+    @apply block transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)];
+  }
+
+  .text-flip-wrapper:hover .text-flip-inner {
+    transform: translateY(-50%);
+  }
+
+  .text-flip-primary,
+  .text-flip-secondary {
+    @apply block h-[1.1em] transition-all;
+  }
+
+  .text-flip-secondary {
+    @apply font-bold text-transparent;
+    -webkit-text-stroke: 1px var(--color-ink);
+  }
+
+  /* For dark theme text-flip overrides */
+  .theme-dark .text-flip-secondary {
+    -webkit-text-stroke: 1px var(--color-paper);
+  }
+
+  /* Custom Dashed Border Overlay for Product Cards */
+  .dashed-overlay {
+    @apply absolute inset-2.5 border-2 border-dashed rounded-xl pointer-events-none z-10;
+  }
+}
+
+/* Custom Cursor Follower Styles */
+@media (hover: hover) and (pointer: fine) {
+  .custom-cursor {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--color-ink);
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9999;
+    transition: width 0.25s ease-out, height 0.25s ease-out, background-color 0.25s ease-out, border-color 0.25s ease-out;
+  }
+
+  .custom-cursor-dot {
+    width: 5px;
+    height: 5px;
+    background-color: var(--color-ink);
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* Make default cursor hidden on elements using cursor follower */
+  .cursor-none-all, .cursor-none-all * {
+    cursor: none !important;
+  }
+}
+
